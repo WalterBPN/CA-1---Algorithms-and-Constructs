@@ -11,6 +11,18 @@ public class FoodItem {
     //Constructor
     public FoodItem(String name, double weightGrams) {
         String normalized = normalizeName(name); 
+        
+        // Validate if name is valid, if not throw Exception
+    if (!isAllowed(normalized)) {
+        throw new IllegalArgumentException(
+            "Invalid food name. Allowed: Burger, Pizza, Fries, Sandwich, Hotdog."
+        );
+    }
+
+    // Validate if weight is valid, if not throw Exception
+    if (weightGrams <= 0) {
+        throw new IllegalArgumentException("Weight must be greater than 0 grams.");
+    }
 
         this.name = normalized;
         this.weightGrams = weightGrams;
