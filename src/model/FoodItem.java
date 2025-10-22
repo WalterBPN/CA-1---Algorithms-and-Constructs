@@ -2,8 +2,9 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
+import java.time.LocalDateTime;
 
 public class FoodItem {
     
@@ -12,6 +13,7 @@ public class FoodItem {
     private String name;
     private double weightGrams;
     private LocalDate bestBefore;
+    private LocalDateTime placedAt;
     
     /*
         Constructor that normalizes and validates:
@@ -54,6 +56,7 @@ public class FoodItem {
         this.name = normalized;
         this.weightGrams = weightGrams;
         this.bestBefore = bestBefore;
+        this.placedAt = LocalDateTime.now();
     }
     
     /*
