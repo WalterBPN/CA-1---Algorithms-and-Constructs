@@ -82,6 +82,13 @@ public class FoodItem {
         }
         return false;
     }
+    
+    /*
+        Returns the normalized name of this food item.
+    */
+    public String getName() {
+        return name;
+    }
 
  
 }

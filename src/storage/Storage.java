@@ -14,4 +14,10 @@ public interface Storage {
         or false if the storage is already full.
     */
     boolean add(FoodItem item);
+    
+    /*
+    Returns the next item to be removed without deleting it;
+    Returns null if the storage is empty.
+    */
+    FoodItem peek();
 }

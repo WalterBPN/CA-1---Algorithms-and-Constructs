@@ -66,6 +66,18 @@ public class DequeArrayStorage implements Storage {
         data[rear] = item;
         size++;
         return true;
-}
+    }
+    
+    /*
+    Returns the next item depending on the current mode:
+    - LIFO (default): returns the item at 'rear';
+    - FIFO (later): will return the item at 'front';
+    Returns null if empty.
+    */
+    @Override
+    public FoodItem peek() {
+        if (isEmpty()) return null;
+        return lifoMode ? data[rear] : data[front];
+    }
 
 }
