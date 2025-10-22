@@ -1,43 +1,44 @@
-
 package app;
 
-import java.util.Scanner;
+import model.FoodItem;
+import java.time.LocalDate;
 
+/*
+    Temporary test for FoodItem class;
+    Validates name, weight, and best-before date logic using sample objects.
+*/
 public class Main {
-
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        boolean running = true;
 
-        System.out.println("Welcome to CCT Fast Food - The best in town!!");
+        System.out.println("FoodItem Quick Test\n");
 
-        while (running) {
-            System.out.println("\nMenu:");
-            System.out.println("1) Add item");
-            System.out.println("2) Remove item");
-            System.out.println("3) Peek top/front");
-            System.out.println("4) Display all");
-            System.out.println("5) Toggle mode (LIFO/FIFO)");
-            System.out.println("0) Exit");
-            System.out.print("Choose: ");
-            
-            String opt = input.nextLine().trim();
-            switch (opt) {
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                    System.out.println("It works :D ");
-                    break;
-                case "0":
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid option.");
-            }
+        try {
+            // valid item
+            FoodItem valid = new FoodItem("pizza", 250, LocalDate.now().plusDays(5));
+            System.out.println("Created: " + valid);
+
+            // invalid name
+            System.out.println("\nTesting invalid name...");
+            FoodItem badName = new FoodItem("cake", 200, LocalDate.now().plusDays(3));
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(" Exception: " + e.getMessage());
         }
-        System.out.println("Goodbye!");
-        input.close();
+
+        try {
+            // intentional invalid best-before
+            System.out.println("\nTesting invalid best-before...");
+            FoodItem badDate = new FoodItem("Burger", 150, LocalDate.now().plusDays(20));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+
+        try {
+            // invalid weight
+            System.out.println("\nTesting invalid weight...");
+            FoodItem badWeight = new FoodItem("Fries", 0, LocalDate.now().plusDays(2));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
     }
 }

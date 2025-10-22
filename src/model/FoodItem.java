@@ -1,15 +1,25 @@
 
 package model;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+
 public class FoodItem {
     
     public static final String[] ALLOWED = { "Burger", "Pizza", "Fries", "Sandwich", "Hotdog" };
 
     private String name;
     private double weightGrams;
+    private LocalDate bestBefore;
     
-    //Constructor
-    public FoodItem(String name, double weightGrams) {
+    /*
+        Constructor that normalizes and validates:
+        name;
+        weight must be > 0;
+        bestBefore must be within 0 up to 14 days, including "today"
+    */
+    public FoodItem(String name, double weightGrams, LocalDate bestBefore) {
         String normalized = normalizeName(name); 
         
         // Validate if name is valid, if not throw Exception
@@ -23,9 +33,27 @@ public class FoodItem {
     if (weightGrams <= 0) {
         throw new IllegalArgumentException("Weight must be greater than 0 grams.");
     }
+    
+    /*
+    Validate best-before:
+    - cannot be before today;
+    - cannot be more than 14 days ahead.
+    */
+    if (bestBefore == null) {
+        throw new IllegalArgumentException("Best-before date is required.");
+    }
+
+    LocalDate today = LocalDate.now();
+    long days = ChronoUnit.DAYS.between(today, bestBefore);
+    if (days < 0 || days > 14) {
+        throw new IllegalArgumentException("Best-before must be within 0..14 days from today.");
+    }
+    
+    
 
         this.name = normalized;
         this.weightGrams = weightGrams;
+        this.bestBefore = bestBefore;
     }
     
     /*
@@ -40,7 +68,6 @@ public class FoodItem {
     String lower = nameInput.toLowerCase();
     return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
-    
     
     /*
         Validates if the food name is in the allowed list;
