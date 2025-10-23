@@ -4,7 +4,7 @@ import model.FoodItem;
 
 /*
     Interface that defines the operations for a storage unit.
-    It will support both LIFO (stack) and FIFO (queue) behaviors.
+    It will support both LIFO and FIFO behaviors.
 */
 public interface Storage {
 
@@ -20,4 +20,11 @@ public interface Storage {
     Returns null if the storage is empty.
     */
     FoodItem peek();
+    
+    /*
+    Removes and returns the next item ***depends on current mode***
+    Returns null if the storage is empty.
+    */
+    FoodItem remove();
+
 }

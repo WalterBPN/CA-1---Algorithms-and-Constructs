@@ -4,7 +4,7 @@ import model.FoodItem;
 
 /*
     Class that implements the Storage interface using a fixed-size array;
-    It can simulate both LIFO (stack) and FIFO (queue) behaviors.
+    It can simulate both LIFO and FIFO behaviors.
 */
 public class DequeArrayStorage implements Storage {
 
@@ -27,7 +27,7 @@ public class DequeArrayStorage implements Storage {
         this.front = -1;
         this.rear = -1;
         this.size = 0;
-        this.lifoMode = true; // default: LIFO
+        this.lifoMode = true; // default
     }
     
     /*
@@ -48,7 +48,7 @@ public class DequeArrayStorage implements Storage {
     /*
        Adds an item at the rear end of the deque;
        - If empty, initializes front=rear=0;
-       - Otherwise, moves rear forward in circular fashion;
+       - Otherwise moves rear forward in circular fashion;
        Returns false if storage is already full.
     */
     @Override
@@ -69,15 +69,41 @@ public class DequeArrayStorage implements Storage {
     }
     
     /*
-    Returns the next item depending on the current mode:
-    - LIFO (default): returns the item at 'rear';
-    - FIFO (later): will return the item at 'front';
-    Returns null if empty.
+        Returns the next item depending on the current mode:
+        - LIFO: returns the item at rear;
+        - FIFO: will return the item at front;
+        Returns null if empty;
     */
     @Override
     public FoodItem peek() {
         if (isEmpty()) return null;
         return lifoMode ? data[rear] : data[front];
+    }
+
+    /*
+        Removes and returns the most recently added item;
+        Returns null if the storage is empty;
+    */
+    @Override
+    public FoodItem remove() {
+        if (isEmpty()) return null;
+
+        FoodItem removed;
+        // LIFO: remove from rear;
+        removed = data[rear];
+        data[rear] = null;
+
+        if (size == 1) {
+            // structure becomes empty;
+            front = rear = -1;
+            size = 0;
+            return removed;
+        }
+
+        // move rear one position back
+        rear = (rear - 1 + cap) % cap;
+        size--;
+        return removed;
     }
 
 }
