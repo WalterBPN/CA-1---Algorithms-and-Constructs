@@ -37,9 +37,9 @@ public class FoodItem {
     }
     
     /*
-    Validate best-before:
-    - cannot be before today;
-    - cannot be more than 14 days ahead.
+        Validate best-before:
+        - cannot be before today;
+        - cannot be more than 14 days ahead.
     */
     if (bestBefore == null) {
         throw new IllegalArgumentException("Best-before date is required.");

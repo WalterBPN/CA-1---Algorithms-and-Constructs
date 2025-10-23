@@ -81,7 +81,9 @@ public class DequeArrayStorage implements Storage {
     }
 
     /*
-        Removes and returns the most recently added item;
+        Removes and returns the next item according to the current mode
+        - LIFO (true): removes from rear most recently added;
+        - FIFO (false): removes from front the first added;
         Returns null if the storage is empty;
     */
     @Override
@@ -89,22 +91,38 @@ public class DequeArrayStorage implements Storage {
         if (isEmpty()) return null;
 
         FoodItem removed;
-        // LIFO: remove from rear;
-        removed = data[rear];
-        data[rear] = null;
 
-        if (size == 1) {
-            // structure becomes empty;
-            front = rear = -1;
-            size = 0;
+        if (lifoMode) {
+            // LIFO: remove from rear
+            removed = data[rear];
+            data[rear] = null;
+
+            if (size == 1) {
+                front = rear = -1;
+                size = 0;
+                return removed;
+            }
+
+            rear = (rear - 1 + cap) % cap; // move rear back
+            size--;
+            return removed;
+
+        } else {
+            // FIFO: remove from front
+            removed = data[front];
+            data[front] = null;
+
+            if (size == 1) {
+                front = rear = -1;
+                size = 0;
+                return removed;
+            }
+
+            front = (front + 1) % cap; // move front forward
+            size--;
             return removed;
         }
-
-        // move rear one position back
-        rear = (rear - 1 + cap) % cap;
-        size--;
-        return removed;
-    }
+}
     
     /*
         Enables or disables LIFO mode.
@@ -122,6 +140,27 @@ public class DequeArrayStorage implements Storage {
     @Override
     public boolean isModeLifo() {
         return lifoMode;
+    }
+    
+    /*
+        Prints items from front to rear in logical order.
+        
+    */
+    @Override
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("[empty]");
+            return;
+        }
+        System.out.print("Front -> ");
+        for (int i = 0; i < size; i++) {
+            int idx = (front + i) % cap;
+            FoodItem it = data[idx];
+            System.out.print(it.getName());
+            if (i < size - 1) System.out.print(" | ");
+        }
+        System.out.println(" <- Rear");
+        System.out.println("(mode: " + (lifoMode ? "LIFO" : "FIFO") + ", size=" + size + "/" + cap + ")");
     }
 
 

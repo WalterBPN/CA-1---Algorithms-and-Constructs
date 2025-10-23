@@ -38,6 +38,12 @@ public interface Storage {
         Returns true if LIFO mode is active, false if FIFO.
     */
     boolean isModeLifo();
+    
+    /*
+    Prints all items from front to rear in logical order.
+    */
+    void display();
+
 
 
 }
