@@ -16,15 +16,28 @@ public interface Storage {
     boolean add(FoodItem item);
     
     /*
-    Returns the next item to be removed without deleting it;
-    Returns null if the storage is empty.
+        Returns the next item to be removed without deleting it;
+        Returns null if the storage is empty.
     */
     FoodItem peek();
     
     /*
-    Removes and returns the next item ***depends on current mode***
-    Returns null if the storage is empty.
+        Removes and returns the next item ***depends on current mode***
+        Returns null if the storage is empty.
     */
     FoodItem remove();
+    
+    /*
+        Sets the operating mode
+        - true = LIFO
+        - false = FIFO
+    */
+    void setModeLifo(boolean lifo);
+
+    /*
+        Returns true if LIFO mode is active, false if FIFO.
+    */
+    boolean isModeLifo();
+
 
 }

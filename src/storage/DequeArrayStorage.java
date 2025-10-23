@@ -105,5 +105,24 @@ public class DequeArrayStorage implements Storage {
         size--;
         return removed;
     }
+    
+    /*
+        Enables or disables LIFO mode.
+    */
+    @Override
+        public void setModeLifo(boolean lifo) {
+        this.lifoMode = lifo;
+    }
+
+    /*
+        Returns the current mode
+        true = LIFO
+        false = FIFO
+    */
+    @Override
+    public boolean isModeLifo() {
+        return lifoMode;
+    }
+
 
 }

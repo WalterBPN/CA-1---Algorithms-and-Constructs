@@ -9,16 +9,15 @@ public class Main {
     public static void main(String[] args) {
         DequeArrayStorage storage = new DequeArrayStorage(8);
 
-
+        storage.add(new FoodItem("Burger", 200, LocalDate.now().plusDays(3)));
         storage.add(new FoodItem("Pizza", 250, LocalDate.now().plusDays(4)));
         storage.add(new FoodItem("Fries", 150, LocalDate.now().plusDays(2)));
 
-        System.out.println("Lets try to remove Fries");
-        var r1 = storage.remove();
-        System.out.println("Removed: " + (r1 != null ? r1.getName() : "null"));
+        storage.setModeLifo(false); // switching to FIFO
 
-        System.out.println("Lets try to remove Pizza");
-        var r2 = storage.remove();
-        System.out.println("Removed: " + (r2 != null ? r2.getName() : "null"));
+        System.out.println("Mode LIFO: " + storage.isModeLifo());
+        System.out.println("Trying to peek Burger");
+        var p = storage.peek();
+        System.out.println("Peeked item: " + (p != null ? p.getName() : "null"));
     }
 }
