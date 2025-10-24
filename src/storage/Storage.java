@@ -20,7 +20,7 @@ public interface Storage {
         Returns null if the storage is empty.
     */
     FoodItem peek();
-    
+  
     /*
         Removes and returns the next item ***depends on current mode***
         Returns null if the storage is empty.
@@ -43,6 +43,24 @@ public interface Storage {
     Prints all items from front to rear in logical order.
     */
     void display();
+    
+    /*
+        Searches for an item by name **** case-insensitive, normalized like FoodIte ****);
+        Returns index from FRONT, or -1 if not found.
+    */
+    int searchByName(String name);
+    
+    /*
+        Returns the current number of items.
+    */
+    int size();
+
+    /*
+        Returns the maximum capacity of the storage.
+    */
+    int capacity();
+
+
 
 
 

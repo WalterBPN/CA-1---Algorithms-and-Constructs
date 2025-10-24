@@ -4,10 +4,7 @@ import storage.DequeArrayStorage;
 import model.FoodItem;
 import java.time.LocalDate;
 
-/*
-    Quick test for display():
-    - Add three items and print current order (front -> rear).
-*/
+
 public class Main {
     public static void main(String[] args) {
         DequeArrayStorage storage = new DequeArrayStorage(8);
@@ -16,10 +13,11 @@ public class Main {
         storage.add(new FoodItem("Pizza", 250, LocalDate.now().plusDays(4)));
         storage.add(new FoodItem("Fries", 150, LocalDate.now().plusDays(2)));
 
-        storage.display(); 
+        System.out.println("Size: " + storage.size());        // 3
+        System.out.println("Capacity: " + storage.capacity()); // 8
 
-        storage.setModeLifo(false); // switch to FIFO
-        System.out.println("Peek: " + storage.peek().getName()); 
-        storage.display();
+        System.out.println("Search Pizza: " + storage.searchByName("Pizza")); // 1
+        System.out.println("Search burger: " + storage.searchByName("burger")); // 0
+        System.out.println("Search hotdog: " + storage.searchByName("hotdog")); // -1
     }
 }

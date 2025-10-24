@@ -163,5 +163,33 @@ public class DequeArrayStorage implements Storage {
         System.out.println("(mode: " + (lifoMode ? "LIFO" : "FIFO") + ", size=" + size + "/" + cap + ")");
     }
 
+    /*
+        Linear search by name from FRONT to REAR;
+        Returns index or -1 if not found.
+    */
+    @Override
+    public int searchByName(String name) {
+        if (name == null || isEmpty()) return -1;
+        String needle = name.trim().toLowerCase();
+        for (int i = 0; i < size; i++) {
+            int idx = (front + i) % cap;
+            FoodItem it = data[idx];
+            if (it != null && it.getName().toLowerCase().equals(needle)) {
+                return i; // logical position from FRONT
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public int capacity() {
+        return cap;
+    }
+
 
 }
