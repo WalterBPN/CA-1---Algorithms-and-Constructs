@@ -2,9 +2,9 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FoodItem {
     
@@ -88,6 +88,19 @@ public class FoodItem {
     */
     public String getName() {
         return name;
+    }
+    
+    /*
+        Readable string representation of the FoodItem;
+        The date is formatted as dd/mm/yyyy
+    */
+    @Override
+    public String toString() {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return String.format("%s (%.1f g, best before: %s)",
+                this.name,
+                this.weightGrams,
+                this.bestBefore.format(fmt));
     }
 
  
